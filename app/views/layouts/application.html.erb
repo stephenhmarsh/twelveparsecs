@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>12Parsecs</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<header>
+	
+	<div align="center">
+		<a href="/">
+			<%= image_tag "parsecslogo.png", class: "logo" %>
+		</a>
+	</div>
+
+<div class="menu">
+	<% if current_user %>
+		Hello, <%= current_user.name %> | <%= link_to "Logout", logout_path %>
+	<% else %>
+		<%= link_to "Login", login_path %> or <%= link_to "Create Account", new_user_path %>
+	<% end %>
+
+</div>
+
+<div class="menu">
+
+	<a href="/">Home</a> | 
+	<a href="/users">Users</a> | 
+	<a href="/parsecs">Parsecs</a> | 
+	<% if current_user %>
+	<a href="/parsecs/new">New Parsec</a> | 
+	<% end %>
+
+</div>
+
+	<div class="search-box">
+		<h2>
+		<%= form_tag("/parsecs/search", method: "get") do %>
+		<%= label_tag(:search_term, "Search Parsecs by Movie, TV Show, or Video Game:") %> 
+		<%= text_field_tag(:search_term) %> 
+		<%= submit_tag("Search!") %>
+		<% end %>
+		</h2>
+	</div>
+	
+</div>
+</header>
+
+
+<%= yield %>
+
+</body>
+</html>

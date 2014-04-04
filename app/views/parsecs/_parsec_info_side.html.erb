@@ -1,0 +1,15 @@
+<div class="parsec-column-1">
+		<h2><a href="/parsecs/search?associated_title=<%=associated_title["imdbID"]%>"><%= associated_title["Title"] %></a></h2>
+		<img src="<%=associated_title["Poster"]%>" class="poster-info">
+		<br>
+		<div class="title-info-list">
+			<ul>
+				<li>Director: <%= associated_title["Director"] %></li>
+				<li>Writer: <%= associated_title["Writer"] %></li>
+				<li>Runtime: <%= associated_title["Runtime"] %></li>
+				<li>Genre: <%= associated_title["Genre"] %></li>
+				<li>Plot: <%= associated_title["Plot"] %></li>
+				<li>Actors: <%= associated_title["Actors"] %></li>
+			</ul>
+		</div>
+	</div>

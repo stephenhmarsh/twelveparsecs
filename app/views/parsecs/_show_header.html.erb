@@ -1,0 +1,14 @@
+
+<div class="container">
+	<div class="column-1">
+		<h1><%= render partial: "parsec_vote_logic", locals: {parsec: @parsec, user: @user, user_vote_log: @user_vote_log} %></h1>
+	</div>
+	<div class="column-2-1">
+			<h1><%= @parsec.title %></h1>
+	</div>
+	<div class="column-2-2">
+		<img src="<%= @parsec.user.avatar_url%>" class="big-avatar">
+		by: <%= link_to(@parsec.user.name, @parsec.user) %> NerdCred: <% @parsec.user.calculate_nerd_score %> <%= @parsec.user.nerd_cred_score %>
+	</div>
+	<div class="footer"></div>
+</div>

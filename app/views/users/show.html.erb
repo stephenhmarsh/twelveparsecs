@@ -1,0 +1,18 @@
+
+<% if current_user == User.find(params[:id]) %>
+	<div>
+		<a href="/users/<%=@user.id%>/edit">Edit Profile</a> 
+	</div>
+<% end %>
+
+<div class="user-show">
+	<%= render 'show' %>
+
+	<h1><%=@user.name%>'s Parsecs:</h1>
+	<ul>
+	<% @user.parsecs.each do |parsec| %>
+		<li><%= link_to(parsec.title, parsec) %></li>
+	<% end %>
+	</ul>
+
+</div>

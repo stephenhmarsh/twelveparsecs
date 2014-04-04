@@ -1,0 +1,10 @@
+<% if user_comment_vote_log.include?(comment.id) %>
+	<% old_vote = user.comment_user_votes.find_by(comment_id: comment.id) %>
+		<% if old_vote.vote == 1 %>
+			<%= render partial: "comments/comment_voted_up", locals: {comment: comment, old_vote: old_vote} %>
+		<% elsif old_vote.vote == -1 %>
+			<%= render partial: "comments/comment_voted_down", locals: {comment: comment, old_vote: old_vote}  %>
+		<% end %>
+	<% else %>
+		<%= render partial: "comments/comment_vote_new", locals: {comment: comment}  %>
+<% end %>

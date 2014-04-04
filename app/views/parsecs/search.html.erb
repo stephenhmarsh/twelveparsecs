@@ -1,0 +1,80 @@
+<div class="parsec-body">
+
+<% if @search_results %>
+	<ul>
+		<!-- top results -->
+		<% if @search_results["title_popular"] != nil %>
+			<% @search_results["title_popular"].each do |result| %>
+				<div>
+					<li>
+						<a href="/parsecs/search?associated_title=<%=result["id"]%>">
+						<%= result["title"].html_safe %></a> | 
+						<% description = result["description"].split(',') %>
+						<%= description[0].html_safe %>
+					</li>
+				</div>
+			<% end %>
+		<% end %>
+
+			<!-- lower results -->
+		<% if @search_results["title_exact"] != nil  %>
+			<% @search_results["title_exact"].each do |result| %>
+			<div>
+					<li>
+						<a href="/parsecs/search?associated_title=<%=result["id"]%>">
+						<%= result["title"].html_safe %></a> | 
+						<% description = result["description"].split(',') %>
+						<%= description[0].html_safe %>
+					</li>
+				</div>
+			<% end %>
+		<% end %>
+
+		<!-- lowest results -->
+		<% if @search_results["title_substring"] != nil  %>
+			<% @search_results["title_substring"].each do |result| %>
+			<div>
+					<li>
+						<a href="/parsecs/search?associated_title=<%=result["id"]%>">
+						<%= result["title"].html_safe %></a> | 
+						<% description = result["description"].split(',') %>
+						<%= description[0].html_safe %>
+					</li>
+				</div>
+			<% end %>
+		<% end %>
+		</ul>
+
+	<!-- if we searched for SOMETHING, but got NOTHING, tell the user -->
+	<% if @search_results["title_popular"] == nil && @search_results["title_exact"] == nil && @search_results["title_substring"] == nil %>
+		<h2>Sorry, no results found for <%= params[:search_term] %></h2>
+	<% end %>
+<% end %>
+<!-- end of search results stuff -->
+
+<!-- now the results for Parsecs based off selected title from search results -->
+<% if @associated_title != nil %>
+
+<%= render partial: "parsec_info_side", locals: {associated_title: Parsec.omdb_search(@associated_title)} %>
+
+	<% parsecs = Parsec.where(imdb_id: @associated_title) %>
+	<% parsecs.order(score: :desc) %>
+
+	<ul>
+		<% parsecs.each do |parsec| %>
+			<li>
+				<%= link_to(parsec.title, parsec) %> by <%=parsec.user.name%> <img src="<%=parsec.user.avatar_url%>" class="avatar">
+			</li>
+		<% end %>
+	</ul>
+
+	<% if parsecs.length == 0 %>
+			<h2> No Parsecs found for this title :( </h2>
+			<h1><%= link_to("Create one?", "/parsecs/new?associated_title=#{@associated_title}") %></h1>
+	<% end %>
+
+
+<% end %>
+
+</div>
+

@@ -1,0 +1,42 @@
+<%= render 'show' %>
+
+<% if @user.errors.any? %>
+	Account not updated, there were some errors:
+	<ul>
+	<% @user.errors.full_messages.each do |error| %>
+			<li><%= error %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%=form_for(@user, url: {action: "update"}, html: {class: "user-form"})  do |f|%>
+	<div>
+		<%= f.label :name, "Username:" %>
+		<%= f.text_field :name %>
+	</div>
+	<div>
+		<%= f.label :email, "Email address:" %>
+		<%= f.text_field :email %> 
+	</div>
+	<div>
+		<%= f.label :password, "Enter password:" %>
+		<%= f.password_field :password %>
+	</div>
+	<div>
+		<%= f.label :password_confirmation, "Confirm password:" %>
+		<%= f.password_field :password_confirmation %> 
+	</div>
+	<div>
+		<%= f.label :avatar_url, "Avatar URL:" %> 
+		<%= f.text_field :avatar_url %>
+	</div>
+	<div>
+		<%= f.submit "Update Your Account" %>
+	</div>
+<% end %>
+
+<h2>Or...</h2>
+
+<%= form_tag(user_path, method: "delete", html: {class: "user-form"}) do%>
+<%= submit_tag("DELETE YOUR ACCOUNT FOREVER") %>
+<% end %>

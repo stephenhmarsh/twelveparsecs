@@ -1,0 +1,22 @@
+<%= form_for(@parsec, url: {action: "update"}, html: {class: "parsec-form"}) do |f|%>
+<div>
+	<%= f.label :title, "Edit Parsec Title:" %>
+	<%= f.text_field :title, value: @parsec.title%>
+</div>
+
+<div>
+	<%= f.label :body, "Edit Parsec Info:" %>
+	<%= f.text_area :body, value: @parsec.body%>
+
+</div>
+
+<div>
+	<%= f.submit("Save Changes") %>
+</div>
+<% end %>
+
+<h1>OR...</h1>
+
+<%= form_tag(parsec_path, method: :delete, html: {class: "parsec-delete-form"}) do%>
+	<%=submit_tag("DELETE THIS PARSEC FOREVERRRRR")%>
+<% end %>

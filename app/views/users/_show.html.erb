@@ -1,0 +1,10 @@
+<img src="<%= @user.avatar_url%>" class="big-avatar">
+<br>
+
+
+<h1><%=@user.name%> </h1>
+<h2>Nerd Cred Score: <%=@user.nerd_cred_score%> </h2>
+Email: <%=@user.email%> <br> 
+<% @user.calculate_nerd_score %>
+Date Joined: <%=@user.date_joined%> <br>
+

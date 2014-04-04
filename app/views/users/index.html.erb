@@ -1,0 +1,8 @@
+<div class="user-show">
+	<h1>Users</h1>
+	<% @users.each do |user| %>
+		<div class="user_index_row">
+			<img src="<%=user.avatar_url%>" class="avatar"> <%= link_to(user.name, user)%> | Nerd Cred: <% user.calculate_nerd_score %> <%=user.nerd_cred_score%> | Member Since: <%=user.date_joined.to_s%>
+		</div>
+<% end %>
+</div>

@@ -1,0 +1,17 @@
+<%= form_for(@comment, url: {action: "update"}, html: {class: "comment-form"}) do |f| %>
+	<div>
+		<%= f.label(:body, "Edit Comment:") %>
+		<%= f.text_field(:body) %>
+	</div>
+	<div>
+		<%= f.submit("Save Changes") %>
+	</div>
+<% end %>
+
+<h1>Or...</h1>
+
+<%= form_tag(comment_path, method: "delete", html: {class: "comment-form"}) do %>
+
+	<%=submit_tag("Delete Comment For Eternity")%>
+
+<% end %>

@@ -1,0 +1,90 @@
+<div class="parsec-container">
+
+	<!-- INFO SIDE -->
+
+	<%= render partial: "parsec_info_side", locals: {associated_title: @associated_title} %>
+
+
+
+	<!-- COMMENTS SIDE -->
+
+	<div class="parsec-column-2">
+
+		<!-- edit your parsec -->
+		<% if @parsec.user == current_user %>
+			<div class="more-info">
+				<%= link_to("Edit Your Parsec", edit_parsec_path)%>
+			</div>
+		<% end %>
+
+		<% if params[:message] %>
+			<h1>(Error: <%= params[:message] %>)</h1>
+		<% end %>
+	
+
+		<!-- leave a comment -->
+		<% if current_user %>
+				<h1>Dude, because...</h1>
+					<%=form_for(@comment, method: "create", html: {class: "make-comment-form"}) do |f|%>
+							<%= f.hidden_field(:parsec_id, value: "#{params[:id]}")%>
+						<div>
+							<%= f.text_field :body %>
+						</div>
+						<div>
+						<%= f.submit "...like, that's why, man.", id: "make-comment-submit" %>
+					</div>
+				<% end %>
+
+		<% else %>
+
+		<!-- Not logged in -->
+			<h1>Because... <%=link_to("[Login to Answer!]", login_path)%></h1>
+
+		<% end %>
+
+			<!-- more info -->
+		<div class="parsec-body">
+			<p>
+				by <%= @parsec.user.name %> @ <%= @parsec.time %> | More Info:
+			<br><br>
+				<%= @parsec.body %>
+			</p>
+		</div>
+
+
+		<!-- COMMENTS SECTION -->
+
+			<% comments = @parsec.comments.order(score: :desc) %>
+
+			<% comments.each do |comment| %>
+
+				<div class="comment-vote">
+					<%= render partial: "comments/comment_vote_logic", locals: {comment: comment, user: @user, user_comment_vote_log: @user_comment_vote_log} %>
+				</div> 
+
+				<div class="comment-body">
+					<%= comment.body %>
+
+					<% if current_user && comment.user.id == current_user.id %>
+					<br>
+						<%= link_to("Edit My Comment", edit_comment_path(comment))%>
+					<% end %>
+				</div>
+
+				<div class="comment-author">
+					<img src="<%=comment.user.avatar_url%>" class="avatar"><br>
+					by: <%=link_to(comment.user.name, comment.user)%>
+					<%comment.user.calculate_nerd_score%>
+					 (<%=comment.user.nerd_cred_score%>)
+				</div>
+
+			
+			<% end %>
+
+			
+			</div>
+		</div>
+
+	</div>
+
+</div>

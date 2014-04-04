@@ -1,0 +1,34 @@
+<% if @user.errors.any? %>
+	Sorry, we can't create your account until you fix some errors:
+	<ul>
+	<% @user.errors.full_messages.each do |error| %>
+			<li><%= error %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%=form_for(@user, url: {action: "create"}, html: {class: "user-form"})  do |f|%>
+	<div>
+		<%= f.label :name, "Pick your username:" %>
+		<%= f.text_field :name %>
+	</div>
+	<div>
+		<%= f.label :email, "Email address:" %>
+		<%= f.text_field :email %> 
+	</div>
+	<div>
+		<%= f.label :password, "Enter password:" %>
+		<%= f.password_field :password %>
+	</div>
+	<div>
+		<%= f.label :password_confirmation, "Confirm password:" %>
+		<%= f.password_field :password_confirmation %> 
+	</div>
+	<div>
+		<%= f.label :avatar_url, "Avatar URL:" %> 
+		<%= f.text_field :avatar_url %>
+	</div>
+	<div>
+		<%= f.submit "Create Your Account!" %>
+	</div>
+<% end %>

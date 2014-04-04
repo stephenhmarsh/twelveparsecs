@@ -1,0 +1,12 @@
+<!-- already downvoted -->
+
+<%= form_for(@parsec_user_vote, url: parsec_user_vote_path(old_vote.id), html: {method: "patch", class: "parsec-vote-up"}) do |f| %>
+	<%= f.hidden_field(:vote, value: 1)%>
+	<%= f.submit("Upvote") %>
+<% end %>
+
+<%= parsec.score %>
+
+<%= form_for(@parsec_user_vote, url: parsec_user_vote_path(old_vote.id), html: {method: "delete", class: "parsec-voted-down"}) do |f| %>
+	<%= f.submit("Unvote") %>
+<% end %>

@@ -1,0 +1,53 @@
+<% if @associated_title["imdbID"] != "none" %>
+	<h1>Creating Parsec For <%= @associated_title["Title"] %> - <%= @associated_title["Year"] %></h1>
+	<img src="<%= @associated_title["Poster"]%>">
+<% end %>
+
+<% if @search_results != nil %>
+	<ul>
+		<% @search_results["title_popular"].each do |result| %>
+			<div>
+				<li>
+					<a href="/parsecs/new?associated_title=<%=result["id"]%>">
+					<%= result["title"].html_safe %></a> | 
+					<% description = result["description"].split(',') %>
+					<%= description[0].html_safe %>
+				</li>
+			</div>
+		<% end %>
+		<% if @search_results["title_exact"] != nil %>
+			<% @search_results["title_exact"].each do |result| %>
+			<div>
+					<li>
+						<a href="/parsecs/new?associated_title=<%=result["id"]%>">
+						<%= result["title"].html_safe %></a> | 
+						<% description = result["description"].split(',') %>
+						<%= description[0].html_safe %>
+					</li>
+				</div>
+			<% end %>
+		<% end %>
+	</ul>
+<% else %>
+	<%= form_tag("/parsecs/new", method: "get", html: {class: "make-comment-form"}) do %>
+		<%= label_tag(:search_term, "Enter a movie, show, or game to search for:") %> 
+		<%= text_field_tag(:search_term) %> 
+		<%= submit_tag("Search!") %>
+	<% end %>
+<% end %>
+
+
+<%= form_for(@parsec, url: {action: "create"}, html: {class: "parsec-form"}) do |f| %>
+	<div>
+		<%= f.label :title, "Start a Parsec! (Ex: \"In Ghostbusters, why did Peter Venkman have 300cc's of Thorazine on his date with Dana?\")", value: "Parsec Title!"%>
+		<%= f.text_field :title, value: "Parsec Title!" %>
+	</div>
+	<div>
+		<%= f.label :body, "(Optional) Explanation:" %>
+		<%= f.text_area :body, value: "Example: \"I've watched this scene a thousand times and can't figure out why he brought tons of antipsychotics with him to dinner.\""%>
+	</div>
+		<%= f.hidden_field(:imdb_id, value: @associated_title["imdbID"]) %> 
+	<div>
+		<%= f.submit "Create Parsec!" %>
+	</div>
+<% end %> 

@@ -1,0 +1,10 @@
+<% if user_vote_log.include?(parsec.id) %>
+	<% old_vote = user.parsec_user_votes.find_by(parsec_id: parsec.id) %>
+		<% if old_vote.vote == 1 %>
+			<%= render partial: "parsec_voted_up", locals: {parsec: parsec, old_vote: old_vote} %>
+		<% elsif old_vote.vote == -1 %>
+			<%= render partial: "parsec_voted_down", locals: {parsec: parsec, old_vote: old_vote}  %>
+		<% end %>
+	<% else %>
+		<%= render partial: "parsec_vote_new", locals: {parsec: parsec}  %>
+<% end %>

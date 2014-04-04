@@ -1,0 +1,26 @@
+<div align="center">
+	<h1>Top Parsecs</h1>
+</div>
+
+
+<% @parsecs.each do |parsec| %>
+	<div>
+		<table>
+			<tr>
+				<td width="100" valign="middle" align="center"> 
+					<div class="parsec-index-line">
+						<%= render partial: "parsec_vote_logic", locals: {parsec: parsec, user: @user, user_vote_log: @user_vote_log} %>
+					</div>
+				</td>
+				<td width="650" valign="middle">
+						<div class="parsec-index-line">
+						<%= link_to(parsec.title, parsec) %>
+						</div>
+				</td>
+				<td>
+					by <a href="/users/<%= parsec.user.id%>"><img src="<%=parsec.user.avatar_url%>" class="avatar"><%= parsec.user.name %></a> <% parsec.user.calculate_nerd_score %> <%= parsec.user.nerd_cred_score %>
+				</td>
+			</tr>
+		</table>
+	</div>
+<% end %>

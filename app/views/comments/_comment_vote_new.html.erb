@@ -1,0 +1,15 @@
+<!-- no votes -->
+
+<%= form_for(@comment_user_vote, url: comment_user_votes_path, html: {method: "post", class: "parsec-vote-up"}) do |f| %>
+	<%= f.hidden_field(:vote, value: 1)%>
+	<%= f.hidden_field(:comment_id, value: comment.id)%>
+	<%= f.submit("Upvote") %>
+<% end %>
+
+<%= comment.score %>
+
+<%= form_for(@comment_user_vote, url: comment_user_votes_path, html: {method: "post", class: "parsec-vote-down"}) do |f| %>
+	<%= f.hidden_field(:vote, value: -1)%>
+	<%= f.hidden_field(:comment_id, value: comment.id)%>
+	<%= f.submit("Downvote") %>
+<% end %>

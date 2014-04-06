@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 			total += comment.score
 		end
 		self.nerd_cred_score = total
-		self.save
+		self.save	
 	end
 	
 end

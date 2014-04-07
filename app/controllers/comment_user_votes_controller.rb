@@ -10,7 +10,7 @@ class CommentUserVotesController < ApplicationController
 		@vote.save
 
 		@comment = Comment.find(@vote.comment_id)
-		@comment.score = @comment.comment_user_votes.inject(0) {|total, vote_obj| total + vote_obj.vote}
+		@comment.score = @comment.update_score
 		if @comment.save
 			redirect_to :back
 		end
@@ -21,7 +21,7 @@ class CommentUserVotesController < ApplicationController
 		@comment = Comment.find(@vote.comment_id)
 		@vote.vote = params[:comment_user_vote][:vote]
 		@vote.save
-		@comment.score = @comment.comment_user_votes.inject(0) {|total, vote_obj| total + vote_obj.vote}
+		@comment.score = @comment.update_score
 		if @comment.save
 			redirect_to :back
 		end
@@ -32,7 +32,7 @@ class CommentUserVotesController < ApplicationController
 		@vote.destroy
 
 		@comment = Comment.find(@vote.comment_id)
-		@comment.score = @comment.comment_user_votes.inject(0) {|total, vote_obj| total + vote_obj.vote}
+		@comment.score = @comment.update_score
 		if @comment.save
 			redirect_to :back
 		end

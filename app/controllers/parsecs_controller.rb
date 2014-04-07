@@ -5,7 +5,7 @@ class ParsecsController < ApplicationController
 	def index
 		@user = current_user
 		@parsecs = Parsec.order(score: :desc)
-		@parsecs = @parsecs.first(100)
+		@parsecs = @parsecs.first(100) #Top 100 Parsecs
 		if @user != nil
 			@user_vote_log = @user.parsec_user_votes.map {|vote| vote.parsec_id}
 		else

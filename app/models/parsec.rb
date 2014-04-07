@@ -4,6 +4,10 @@ class Parsec < ActiveRecord::Base
 	has_many :comments, dependent: :destroy
 	has_many :parsec_user_votes, dependent: :destroy
 
+	def update_score
+		self.parsec_user_votes.inject(0) {|total, vote_obj| total + vote_obj.vote}
+	end
+
 	def self.title_search(search_term)
 		if search_term != nil
 			if search_term.split(' ').length > 1

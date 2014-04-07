@@ -10,7 +10,7 @@ class ParsecUserVotesController < ApplicationController
 		@vote.save
 
 		@parsec = Parsec.find(@vote.parsec_id)
-		@parsec.score = @parsec.parsec_user_votes.inject(0) {|total, vote_obj| total + vote_obj.vote}
+		@parsec.score = @parsec.update_score
 		if @parsec.save
 			redirect_to :back
 		end
@@ -21,7 +21,7 @@ class ParsecUserVotesController < ApplicationController
 		@parsec = Parsec.find(@vote.parsec_id)
 		@vote.vote = params[:parsec_user_vote][:vote]
 		@vote.save
-		@parsec.score = @parsec.parsec_user_votes.inject(0) {|total, vote_obj| total + vote_obj.vote}
+		@parsec.score = @parsec.update_score
 		if @parsec.save
 			redirect_to :back
 		end
@@ -32,7 +32,7 @@ class ParsecUserVotesController < ApplicationController
 		@vote.destroy
 
 		@parsec = Parsec.find(@vote.parsec_id)
-		@parsec.score = @parsec.parsec_user_votes.inject(0) {|total, vote_obj| total + vote_obj.vote}
+		@parsec.score = @parsec.update_score
 		if @parsec.save
 			redirect_to :back
 		end

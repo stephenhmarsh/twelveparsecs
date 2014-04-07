@@ -14,16 +14,24 @@ class Parsec < ActiveRecord::Base
 				search_term = search_term.split(' ')
 				search_term = search_term.join('+')
 			end
-			raw_results = HTTParty.get("http://www.imdb.com/xml/find?json=1&nr=1&tt=on&q=#{search_term}")
-			results = JSON.parse(raw_results)
+			raw_results = httparty_get("http://www.imdb.com/xml/find?json=1&nr=1&tt=on&q=#{search_term}")
+			results = parse_json(raw_results)
 			return results
 		end
 	end
 
 	def self.omdb_search(search_term)
-			results = HTTParty.get("http://www.omdbapi.com/?i=#{search_term}")
-			results = JSON.parse(results)
+			results = httparty_get("http://www.omdbapi.com/?i=#{search_term}")
+			results = parse_json(results)
 			return results
 		end
+
+	def self.httparty_get(url)
+		return HTTParty.get(url)
+	end
+
+	def self.parse_json(response)
+		return JSON.parse(response)
+	end
 
 end

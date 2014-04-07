@@ -19,8 +19,8 @@ class ParsecsController < ApplicationController
 		@parsec = Parsec.find(params[:id])
 		@comment = Comment.new
 		if @user != nil
-			@user_vote_log = @user.parsec_user_votes.map {|vote| vote.parsec_id }
-			@user_comment_vote_log = @user.comment_user_votes.map {|vote| vote.comment_id}
+			@user_vote_log = @user.set_parsec_vote_log
+			@user_comment_vote_log = @user.set_comment_vote_log
 		else
 			@user_vote_log = []
 			@user_comment_vote_log = []

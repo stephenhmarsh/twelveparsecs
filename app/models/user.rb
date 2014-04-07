@@ -22,5 +22,13 @@ class User < ActiveRecord::Base
 		self.nerd_cred_score = total
 		self.save	
 	end
+
+	def set_parsec_vote_log
+		self.parsec_user_votes.map {|vote| vote.parsec_id }
+	end
+
+	def set_comment_vote_log
+		self.comment_user_votes.map {|vote| vote.comment_id}
+	end
 	
 end

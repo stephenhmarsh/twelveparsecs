@@ -26,9 +26,6 @@ describe User do
     end
     @test_comment.score = comment_total
     @test_comment.save
-
-
-
   end
 
 	it{should validate_presence_of(:name)}
@@ -36,8 +33,10 @@ describe User do
 
 	describe 'calculate_nerd_score' do 
 		it "should return accurate nerd cred score" do 
+			@test_user.reload
 			expect(@test_user.nerd_cred_score).to eq(0)
 			@test_user.calculate_nerd_score
+			@test_user.reload
 			expect(@test_user.nerd_cred_score).to eq(2)
 		end
 	end

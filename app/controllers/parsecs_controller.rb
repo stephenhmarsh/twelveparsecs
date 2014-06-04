@@ -28,6 +28,7 @@ class ParsecsController < ApplicationController
 		@parsec_user_vote = ParsecUserVote.new
 		@comment_user_vote = CommentUserVote.new
 		@associated_title = Parsec.omdb_search(@parsec.imdb_id)
+		@associated_title["Poster"] = Parsec.rotten_tomatoes_poster(@associated_title["Title"])
 		render :layout => "parsec_show"
 	end
 

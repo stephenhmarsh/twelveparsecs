@@ -24,7 +24,16 @@ class Parsec < ActiveRecord::Base
 			results = httparty_get("http://www.omdbapi.com/?i=#{search_term}")
 			results = parse_json(results)
 			return results
-		end
+	end
+
+	def self.rotten_tomatoes_poster(search_term)
+			api_key = ENV['RT_API_KEY']
+			title = URI.escape(search_term)
+			results = httparty_get("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=#{api_key}&q=#{title}")
+			results = parse_json(results)
+			poster = results["movies"][0]["posters"]["detailed"]
+			return poster
+	end
 
 	def self.httparty_get(url)
 		return HTTParty.get(url)

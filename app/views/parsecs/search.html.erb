@@ -55,9 +55,9 @@
 <!-- now the results for Parsecs based off selected title from search results -->
 <% if @associated_title != nil %>
 
-<%= render partial: "parsec_info_side", locals: {associated_title: Parsec.omdb_search(@associated_title)} %>
+<%= render partial: "parsec_info_side", locals: {associated_title: @associated_title} %>
 
-	<% parsecs = Parsec.where(imdb_id: @associated_title) %>
+	<% parsecs = Parsec.where(imdb_id: @associated_title_id) %>
 	<% parsecs.order(score: :desc) %>
 
 	<ul>

@@ -38,6 +38,7 @@ class ParsecsController < ApplicationController
 			@search_results = Parsec.title_search(params[:search_term])
 			if params[:associated_title]
 				@associated_title = Parsec.omdb_search(params[:associated_title])
+				@associated_title["Poster"] = Parsec.rotten_tomatoes_poster(@associated_title["Title"])
 			else
 				@associated_title={"imdbID" => "none"}
 			end
@@ -90,7 +91,9 @@ class ParsecsController < ApplicationController
 	def search
 		@search_results = Parsec.title_search(params[:search_term])
 		if params[:associated_title]
-			@associated_title = params[:associated_title]
+			@associated_title_id = params[:associated_title]
+			@associated_title = Parsec.omdb_search(params[:associated_title])
+			@associated_title["Poster"] = Parsec.rotten_tomatoes_poster(@associated_title["Title"])
 		else
 			@associated_title = nil
 		end
